@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Sandbox;
 
 namespace DZetko.Xml
@@ -15,7 +16,17 @@ namespace DZetko.Xml
 			File
 		};
 
-		public XmlParser( InputType inputType, string input )
+		public XmlParser(Stream stream)
+		{
+			_inputType = InputType.Text;
+
+			using (StreamReader reader = new StreamReader(stream))
+			{
+				_input = reader.ReadToEnd();
+			}
+		}
+
+		public XmlParser(InputType inputType, string input)
 		{
 			_inputType = inputType;
 			_input = input;
